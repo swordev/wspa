@@ -1,5 +1,11 @@
 # wspa
 
+## 0.0.3
+
+### Patch Changes
+
+- [`3aa1ed7`](https://github.com/swordev/wspa/commit/3aa1ed7f95b56201ca87b006e349a95ed01f6b9f) Thanks [@juanrgm](https://github.com/juanrgm)! - Fix bin
+
 ## 0.0.2
 
 ### Patch Changes
