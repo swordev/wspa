@@ -1,0 +1,45 @@
+{
+  "name": "wspa",
+  "version": "0.0.1",
+  "description": "CLI tool for creating workspaces",
+  "homepage": "https://github.com/swordev/wspa#readme",
+  "bugs": {
+    "url": "https://github.com/swordev/wspa/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swordev/wspa"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Juanra GM",
+    "email": "juanrgm724@gmail.com",
+    "url": "https://github.com/juanrgm"
+  },
+  "type": "module",
+  "bin": "bin.js",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean",
+    "watch": "tsc -b -w"
+  },
+  "dependencies": {
+    "@wspa/cli": "workspace:*"
+  },
+  "publishConfig": {
+    "directory": "lib"
+  },
+  "engine": {
+    "node": ">=16.0.0"
+  },
+  "x-wspa": {
+    "distDir": "lib",
+    "outFiles": [
+      "lib",
+      "tsconfig.tsbuildinfo"
+    ],
+    "distFiles": [
+      "CHANGELOG.md"
+    ]
+  }
+}

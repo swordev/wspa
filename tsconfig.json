@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "incremental": true,
+    "composite": true
+  },
+  "exclude": ["**/temp/", "**/.*/", "**/lib", "**/node_modules"],
+  "extends": "@tsconfig/node16/tsconfig.json"
+}
