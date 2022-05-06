@@ -1,0 +1,5 @@
+---
+"wspa": patch
+---
+
+Fix bin

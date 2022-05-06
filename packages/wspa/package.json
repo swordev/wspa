@@ -17,7 +17,7 @@
     "url": "https://github.com/juanrgm"
   },
   "type": "module",
-  "bin": "bin.js",
+  "bin": "index.js",
   "scripts": {
     "build": "tsc -b",
     "clean": "tsc -b --clean",
