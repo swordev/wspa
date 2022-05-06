@@ -39,7 +39,8 @@
       "tsconfig.tsbuildinfo"
     ],
     "distFiles": [
-      "CHANGELOG.md"
+      "CHANGELOG.md",
+      "node_modules"
     ]
   }
 }

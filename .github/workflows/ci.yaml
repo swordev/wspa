@@ -37,7 +37,7 @@ jobs:
       - name: Test
         run: pnpm test
       - name: Patch
-        run: node packages/cli/lib/bin patch
+        run: pnpm patch
       - name: Create release pull request or publish to npm
         id: changesets
         uses: changesets/action@v1
