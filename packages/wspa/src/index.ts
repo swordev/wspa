@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-import "@wspa/cli/bin";
+import "@wspa/cli/bin.js";
