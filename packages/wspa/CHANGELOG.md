@@ -1,5 +1,11 @@
 # wspa
 
+## 0.0.4
+
+### Patch Changes
+
+- [`a7da7c1`](https://github.com/swordev/wspa/commit/a7da7c16db20643f26c3df0147ccbfca6bc20719) Thanks [@juanrgm](https://github.com/juanrgm)! - Fix import path
+
 ## 0.0.3
 
 ### Patch Changes
