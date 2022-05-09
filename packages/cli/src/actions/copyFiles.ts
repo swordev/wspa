@@ -1,10 +1,9 @@
-import { safeStat } from "../utils/fs.js";
 import { logAction, logPkgName } from "../utils/log.js";
 import { getPackages, pkgPropName } from "./../utils/package.js";
 import cpy from "cpy";
 import fg from "fast-glob";
 import { mkdir, symlink, writeFile } from "fs/promises";
-import { dirname, join } from "path";
+import { dirname, join, relative } from "path";
 
 async function copyFiles(options: { packageNames?: string[] }) {
   logAction(copyFiles.name);
@@ -50,7 +49,9 @@ async function copyFiles(options: { packageNames?: string[] }) {
           if ((error as NodeJS.ErrnoException).code !== "EEXIST") throw error;
         }
       } else {
-        await cpy(entryPath, distPath);
+        const rEntryPath = relative(pkg.dir, entryPath);
+        const rDistPath = relative(pkg.dir, distPath);
+        await cpy(rEntryPath, rDistPath, { cwd: pkg.dir });
       }
     }
   }
