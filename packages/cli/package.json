@@ -1,6 +1,6 @@
 {
   "name": "@wspa/cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "CLI tool for creating workspaces",
   "homepage": "https://github.com/swordev/wspa#readme",
   "bugs": {
