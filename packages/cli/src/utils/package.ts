@@ -23,6 +23,21 @@ function getManifestConfig(manifest: ProjectManifest | undefined) {
   return ((manifest as any)[configKey] || {}) as Config | false;
 }
 
+function resolvePath(path: string, cwd: string) {
+  if (!path.endsWith(".js")) {
+    const slashes = path.split("/").length - 1;
+    const scoped = path.startsWith("@");
+    // @vendor/pkg/file -> @vendor/pkg/file.js
+    // pkg/file -> pkg/file.js
+    const appendExt = (scoped && slashes) > 1 || (!scoped && slashes > 0);
+    if (appendExt) {
+      path += ".js";
+    }
+  }
+  if (path.startsWith("./")) path = `file://${join(cwd, path)}`;
+  return path;
+}
+
 export async function getPackages(options: { packageNames?: string[] } = {}) {
   const allProjects = await findWorkspacePackagesNoCheck(".");
   const rootProject = allProjects.find((pkg) => pkg.dir === ".");
@@ -60,8 +75,7 @@ export async function getPackages(options: { packageNames?: string[] } = {}) {
         };
 
       if (pkg.config.extends) {
-        let path = pkg.config.extends;
-        if (path.startsWith("./")) path = `file://${join(pkg.dir, path)}`;
+        const path = resolvePath(pkg.config.extends, pkg.dir);
         const applyConfig = await import(path);
         pkg.config = await applyConfig.default(pkg);
       }
