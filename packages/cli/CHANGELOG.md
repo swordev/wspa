@@ -1,5 +1,11 @@
 # @wspa/cli
 
+## 0.1.0
+
+### Minor Changes
+
+- [`67557eb`](https://github.com/swordev/wspa/commit/67557eb795fe29ef3ae0f74f0dc6e75f5c188a93) Thanks [@juanrgm](https://github.com/juanrgm)! - Allow CommonJS path extends
+
 ## 0.0.4
 
 ### Patch Changes
