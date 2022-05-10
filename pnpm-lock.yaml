@@ -44,6 +44,12 @@ importers:
       tsconfig: 7.0.0
       yaml: 2.0.1
 
+  packages/config:
+    specifiers:
+      '@wspa/cli': workspace:*
+    dependencies:
+      '@wspa/cli': link:../cli
+
   packages/wspa:
     specifiers:
       '@wspa/cli': workspace:*

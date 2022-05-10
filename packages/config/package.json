@@ -1,7 +1,7 @@
 {
-  "name": "wspa",
-  "version": "0.0.5",
-  "description": "CLI tool for creating workspaces",
+  "name": "@wspa/config",
+  "version": "0.0.1",
+  "description": "WSPA configs",
   "type": "module",
   "scripts": {
     "build": "tsc -b",
@@ -16,10 +16,5 @@
   },
   "engine": {
     "node": ">=16.0.0"
-  },
-  "x-wspa": {
-    "pkgManifest": {
-      "bin": "index.js"
-    }
   }
 }

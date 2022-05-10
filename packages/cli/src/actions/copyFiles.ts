@@ -1,5 +1,5 @@
 import { logAction, logPkgName } from "../utils/log.js";
-import { getPackages, pkgPropName } from "./../utils/package.js";
+import { getPackages, configKey } from "./../utils/package.js";
 import cpy from "cpy";
 import fg from "fast-glob";
 import { mkdir, symlink, writeFile } from "fs/promises";
@@ -34,13 +34,14 @@ async function copyFiles(options: { packageNames?: string[] }) {
       });
 
       if (entryValue === "package.json") {
-        const newPkg: typeof pkg.manifest = {
+        let newPkg: typeof pkg.manifest = {
           ...pkg.manifest,
         };
         delete newPkg.publishConfig;
         delete newPkg.devDependencies;
         delete newPkg.scripts;
-        if (pkgPropName in newPkg) delete newPkg[pkgPropName];
+        if (configKey in newPkg) delete newPkg[configKey];
+        newPkg = { ...newPkg, ...(pkg.config.pkgManifest || {}) };
         await writeFile(outPath, JSON.stringify(newPkg, null, 2));
       } else if (entryValue === "node_modules") {
         try {
