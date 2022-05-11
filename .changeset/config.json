@@ -9,7 +9,7 @@
     }
   ],
   "commit": false,
-  "fixed": [],
+  "fixed": [["@wspa/cli", "wspa"]],
   "ignore": [],
   "linked": [],
   "updateInternalDependencies": "patch"
