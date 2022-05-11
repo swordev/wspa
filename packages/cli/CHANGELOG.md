@@ -1,5 +1,11 @@
 # @wspa/cli
 
+## 0.1.1
+
+### Patch Changes
+
+- [`7356470`](https://github.com/swordev/wspa/commit/7356470624380af0a9c544c75be6e3dc2f714b4f) Thanks [@juanrgm](https://github.com/juanrgm)! - Fix `updateDepLinks` action
+
 ## 0.1.0
 
 ### Minor Changes
