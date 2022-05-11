@@ -10,11 +10,11 @@ async function apply(
 ) {
   for (const pkg of packages) {
     const dependencyPath = join(pkgDir, "node_modules", pkg.name);
-    const link = await safeReadLink(dependencyPath);
-    if (!link) continue;
+    const isSymlink = !!(await safeReadLink(dependencyPath));
+    if (!isSymlink) continue;
 
     if (pkg.config.distDir) {
-      const targetPath = join(link, pkg.config.distDir);
+      const targetPath = join(pkg.dir, pkg.config.distDir);
       await unlink(dependencyPath);
       await symlink(targetPath, dependencyPath, "junction");
     }
