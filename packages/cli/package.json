@@ -9,14 +9,15 @@
     "watch": "tsc -b -w"
   },
   "dependencies": {
-    "@pnpm/find-workspace-packages": "^4.0.2",
+    "@pnpm/find-workspace-packages": "^4.0.10",
     "@pnpm/logger": "^4.0.0",
-    "commander": "^9.2.0",
+    "@pnpm/types": "^8.0.1",
+    "commander": "^9.3.0",
     "cpy": "^9.0.1",
     "fast-glob": "^3.2.11",
     "json5": "^2.2.1",
     "tsconfig": "^7.0.0",
-    "yaml": "^2.0.1"
+    "yaml": "^2.1.1"
   },
   "publishConfig": {
     "directory": "lib"
