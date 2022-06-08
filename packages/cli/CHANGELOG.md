@@ -1,5 +1,15 @@
 # @wspa/cli
 
+## 0.2.0
+
+### Minor Changes
+
+- [`960d7a9`](https://github.com/swordev/wspa/commit/960d7a9fce958575a830e609f008ed5572cf7578) Thanks [@juanrgm](https://github.com/juanrgm)! - Resolve `<directory>` token in `repository.directory` config
+
+### Patch Changes
+
+- [`e9aa669`](https://github.com/swordev/wspa/commit/e9aa6697cbeb751fb288b0118b1b3e9f5f89c33e) Thanks [@juanrgm](https://github.com/juanrgm)! - Update dependencies
+
 ## 0.1.1
 
 ### Patch Changes
