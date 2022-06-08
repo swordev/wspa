@@ -36,7 +36,8 @@
       },
       "repository": {
         "type": "git",
-        "url": "https://github.com/swordev/wspa"
+        "url": "https://github.com/swordev/wspa",
+        "directory": "<directory>"
       }
     }
   }

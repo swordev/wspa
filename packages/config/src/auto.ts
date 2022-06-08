@@ -47,6 +47,20 @@ export default async function auto(pkg: Package) {
     : {};
   const autoConfig = await buildConfig(pkg);
 
+  if (
+    config.pkgManifest?.repository &&
+    typeof config.pkgManifest.repository !== "string"
+  ) {
+    const repo = config.pkgManifest.repository as any as {
+      directory?: string;
+    };
+    if (repo.directory)
+      repo.directory = repo.directory?.replaceAll(
+        "<directory>",
+        pkg.relativeDir.replaceAll("\\", "/")
+      );
+  }
+
   if (config.distDir && autoConfig.distDir) {
     config.distDir = config.distDir.replaceAll("<distDir>", autoConfig.distDir);
   } else if (!config.distDir) {

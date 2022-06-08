@@ -15,6 +15,7 @@ export type Config = {
 export type Package = {
   name: string;
   dir: string;
+  relativeDir: string;
   manifest: ProjectManifest;
   config: Config;
 };
@@ -57,6 +58,7 @@ export async function getPackages(options: { packageNames?: string[] } = {}) {
     const pkg: Package = {
       name: project.manifest.name!,
       dir: resolve(project.dir),
+      relativeDir: project.dir,
       manifest: project.manifest,
       config: {},
     };
