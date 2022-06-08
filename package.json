@@ -5,6 +5,7 @@
     "build": "tsc -b tsconfig.build.json",
     "clean": "node packages/cli/lib/bin.js clean",
     "patch": "node packages/cli/lib/bin.js patch",
+    "start": "node packages/cli/lib/bin.js ",
     "test": "echo success",
     "watch": "tsc -b tsconfig.build.json -w"
   },
