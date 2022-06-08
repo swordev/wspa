@@ -1,5 +1,12 @@
 # wspa
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`54dae4c`](https://github.com/swordev/wspa/commit/54dae4cc048d5ca1735736bc874e0fe5446aa95a), [`68d704e`](https://github.com/swordev/wspa/commit/68d704ee8cd9efc6c1371cf850fec2e6b45daded)]:
+  - @wspa/cli@0.2.1
+
 ## 0.2.0
 
 ### Patch Changes
