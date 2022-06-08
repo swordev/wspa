@@ -10,7 +10,9 @@ async function safeReadFile(path: string) {
 }
 
 export async function buildConfig(pkg: Package) {
-  const vite = await safeReadFile(`${pkg.dir}/vite.config.ts`);
+  const vite =
+    !!(await safeReadFile(`${pkg.dir}/vite.config.ts`)) ||
+    !!(await safeReadFile(`${pkg.dir}/vite.config.js`));
   const tsconfigRaw = await safeReadFile(`${pkg.dir}/tsconfig.json`);
   const config: Pick<Config, "distDir" | "distFiles" | "outFiles"> = {
     distFiles: ["CHANGELOG.md", "node_modules"],
