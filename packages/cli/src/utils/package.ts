@@ -68,11 +68,11 @@ export async function getPackages(options: { packageNames?: string[] } = {}) {
 
       if (rootConfig !== false)
         pkg.config = {
-          ...pkg.config,
           ...rootConfig,
+          ...pkg.config,
           pkgManifest: {
-            ...pkg.config.pkgManifest,
             ...rootConfig.pkgManifest,
+            ...pkg.config.pkgManifest,
           },
         };
 
