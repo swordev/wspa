@@ -34,21 +34,21 @@ if (pkg?.version) program.version(pkg.version);
 program
   .command(snakeCase(clean.name))
   .option(...packageNamesOption)
-  .action(clean);
+  .action((o) => clean({ log: true, ...o }));
 
 program
   .command(snakeCase(copyFiles.name))
   .option(...packageNamesOption)
-  .action(copyFiles);
+  .action((o) => copyFiles({ log: true, ...o }));
 
 program
   .command(snakeCase(updateDepLinks.name))
   .option(...packageNamesOption)
-  .action(updateDepLinks);
+  .action((o) => updateDepLinks({ log: true, ...o }));
 
 program
   .command(snakeCase(patch.name))
   .option(...packageNamesOption)
-  .action(patch);
+  .action((o) => patch({ log: true, ...o }));
 
 program.parse();

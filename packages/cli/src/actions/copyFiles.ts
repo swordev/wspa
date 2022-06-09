@@ -5,13 +5,13 @@ import fg from "fast-glob";
 import { mkdir, symlink, writeFile } from "fs/promises";
 import { dirname, join, relative } from "path";
 
-async function copyFiles(options: { packageNames?: string[] }) {
-  logAction(copyFiles.name);
+async function copyFiles(options: { packageNames?: string[]; log?: boolean }) {
+  if (options.log) logAction(copyFiles.name);
   const packages = await getPackages({ packageNames: options.packageNames });
   const baseFiles = ["package.json", "README.md", "LICENSE"];
   for (const pkg of packages) {
     if (!pkg.config.distDir) continue;
-    logPkgName(pkg.name);
+    if (options.log) logPkgName(pkg.name);
     const distPath = join(pkg.dir, pkg.config.distDir);
     const files = pkg.config.distFiles;
     const allFiles = [...baseFiles, ...(files ?? [])];

@@ -4,14 +4,13 @@ import fg from "fast-glob";
 import { rm } from "fs/promises";
 import { join } from "path";
 
-async function clean(options: { packageNames?: string[] }) {
-  logAction(clean.name);
+async function clean(options: { packageNames?: string[]; log?: boolean }) {
+  if (options.log) logAction(clean.name);
   const packages = await getPackages({ packageNames: options.packageNames });
 
   for (const pkg of packages) {
     if (!pkg.config.outFiles) continue;
-
-    logPkgName(pkg.name);
+    if (options.log) logPkgName(pkg.name);
 
     const stream = fg.stream(pkg.config.outFiles, {
       dot: true,

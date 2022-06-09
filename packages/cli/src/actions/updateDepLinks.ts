@@ -24,11 +24,14 @@ async function apply(
 /**
  * @link https://github.com/pnpm/pnpm/issues/3901
  */
-async function updateDepLinks(options: { packageNames?: string[] }) {
-  logAction(updateDepLinks.name);
+async function updateDepLinks(options: {
+  packageNames?: string[];
+  log?: boolean;
+}) {
+  if (options.log) logAction(updateDepLinks.name);
   const packages = await getPackages({ packageNames: options.packageNames });
   for (const pkg of packages) {
-    logPkgName(pkg.name);
+    if (options.log) logPkgName(pkg.name);
     await apply(pkg.dir, packages);
   }
 }
