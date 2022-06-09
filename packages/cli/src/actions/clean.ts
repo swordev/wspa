@@ -20,9 +20,13 @@ async function clean(options: { packageNames?: string[]; log?: boolean }) {
 
     for await (const entry of stream) {
       const entryPath = join(pkg.dir, entry.toString());
-      await rm(entryPath, {
-        recursive: true,
-      });
+      try {
+        await rm(entryPath, {
+          recursive: true,
+        });
+      } catch (error) {
+        if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+      }
     }
   }
 }
