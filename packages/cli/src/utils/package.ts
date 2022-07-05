@@ -6,6 +6,7 @@ export const configKey = "x-wspa" as const;
 
 export type Config = {
   extends?: string;
+  rootDir?: string;
   distDir?: string;
   outFiles?: string[];
   distFiles?: string[];

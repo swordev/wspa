@@ -1,8 +1,8 @@
 import { logAction, logPkgName } from "../utils/log.js";
+import { resolveRoot } from "../utils/path.js";
 import { getPackages, configKey } from "./../utils/package.js";
-import cpy from "cpy";
 import fg from "fast-glob";
-import { mkdir, symlink, writeFile } from "fs/promises";
+import { cp, mkdir, symlink, writeFile } from "fs/promises";
 import { dirname, join, relative } from "path";
 
 async function copyFiles(options: { packageNames?: string[]; log?: boolean }) {
@@ -26,10 +26,14 @@ async function copyFiles(options: { packageNames?: string[]; log?: boolean }) {
 
     for await (const entry of stream) {
       const entryValue = entry.toString();
-      const entryPath = join(pkg.dir, entryValue);
-      const outPath = join(distPath, entryValue);
-      const outDir = dirname(outPath);
-      await mkdir(outDir, {
+      const rootDir = join(pkg.config.distDir, pkg.config.rootDir ?? ".");
+      const distPath = join(pkg.config.distDir, entryValue);
+      const resolvedDistPath = resolveRoot(relative(rootDir, distPath));
+      const endDistPath = join(pkg.config.distDir, resolvedDistPath);
+      const sourcePath = join(pkg.dir, entryValue);
+      const targetPath = join(pkg.dir, endDistPath);
+
+      await mkdir(dirname(targetPath), {
         recursive: true,
       });
 
@@ -42,17 +46,17 @@ async function copyFiles(options: { packageNames?: string[]; log?: boolean }) {
         delete newPkg.scripts;
         if (configKey in newPkg) delete newPkg[configKey];
         newPkg = { ...newPkg, ...(pkg.config.pkgManifest || {}) };
-        await writeFile(outPath, JSON.stringify(newPkg, null, 2));
+        await writeFile(targetPath, JSON.stringify(newPkg, null, 2));
       } else if (entryValue === "node_modules") {
         try {
-          await symlink(entryPath, outPath, "junction");
+          await symlink(sourcePath, targetPath, "junction");
         } catch (error) {
           if ((error as NodeJS.ErrnoException).code !== "EEXIST") throw error;
         }
       } else {
-        const rEntryPath = relative(pkg.dir, entryPath);
-        const rDistPath = relative(pkg.dir, distPath);
-        await cpy(rEntryPath, rDistPath, { cwd: pkg.dir });
+        await cp(sourcePath, targetPath, {
+          recursive: true,
+        });
       }
     }
   }

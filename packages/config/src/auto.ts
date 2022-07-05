@@ -14,10 +14,11 @@ export async function buildConfig(pkg: Package) {
     !!(await safeReadFile(`${pkg.dir}/vite.config.ts`)) ||
     !!(await safeReadFile(`${pkg.dir}/vite.config.js`));
   const tsconfigRaw = await safeReadFile(`${pkg.dir}/tsconfig.json`);
-  const config: Pick<Config, "distDir" | "distFiles" | "outFiles"> = {
-    distFiles: ["CHANGELOG.md", "node_modules"],
-    outFiles: [],
-  };
+  const config: Pick<Config, "distDir" | "rootDir" | "distFiles" | "outFiles"> =
+    {
+      distFiles: ["CHANGELOG.md", "node_modules"],
+      outFiles: [],
+    };
 
   if (vite) {
     config.distDir = "dist";
@@ -27,12 +28,14 @@ export async function buildConfig(pkg: Package) {
       | {
           compilerOptions?: {
             outDir?: string;
+            rootDir?: string;
           };
         }
       | undefined;
 
     const distDir = tsconfig?.compilerOptions?.outDir;
 
+    config.rootDir = tsconfig?.compilerOptions?.rootDir;
     config.distDir = distDir;
     config.outFiles!.push("tsconfig.tsbuildinfo");
     if (distDir) config.outFiles!.push(distDir);
@@ -61,6 +64,12 @@ export default async function auto(pkg: Package) {
         "<directory>",
         pkg.relativeDir.replaceAll("\\", "/")
       );
+  }
+
+  if (config.rootDir && autoConfig.rootDir) {
+    config.rootDir = config.rootDir.replaceAll("<rootDir>", autoConfig.rootDir);
+  } else if (!config.rootDir) {
+    config.rootDir = autoConfig.rootDir;
   }
 
   if (config.distDir && autoConfig.distDir) {
