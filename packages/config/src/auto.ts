@@ -25,13 +25,13 @@ export async function buildConfig(pkg: Package) {
   } else if (tsconfigRaw) {
     const tsconfig = JSON.parse(tsconfigRaw) as
       | {
-          compilerOptions: {
+          compilerOptions?: {
             outDir?: string;
           };
         }
       | undefined;
 
-    const distDir = tsconfig?.compilerOptions.outDir;
+    const distDir = tsconfig?.compilerOptions?.outDir;
 
     config.distDir = distDir;
     config.outFiles!.push("tsconfig.tsbuildinfo");
