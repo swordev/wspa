@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import clean from "./actions/clean.js";
+import compose from "./actions/compose.js";
 import copyFiles from "./actions/copyFiles.js";
-import patch from "./actions/patch.js";
 import updateDepLinks from "./actions/updateDepLinks.js";
 import { program } from "commander";
 import { readFileSync } from "fs";
@@ -47,8 +47,8 @@ program
   .action((o) => updateDepLinks({ log: true, ...o }));
 
 program
-  .command(snakeCase(patch.name))
+  .command(snakeCase(compose.name))
   .option(...packageNamesOption)
-  .action((o) => patch({ log: true, ...o }));
+  .action((o) => compose({ log: true, ...o }));
 
 program.parse();
