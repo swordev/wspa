@@ -1,5 +1,18 @@
 # @wspa/config
 
+## 0.2.0
+
+### Minor Changes
+
+- [`e96bd5a`](https://github.com/swordev/wspa/commit/e96bd5acc203ea6a09574cb4eff151648d2f3e70) Thanks [@juanrgm](https://github.com/juanrgm)! - Add `rootDir` config option
+
+### Patch Changes
+
+- [`21333e8`](https://github.com/swordev/wspa/commit/21333e8bbfbb375b635ac40ee3c6ae1a39925fd2) Thanks [@juanrgm](https://github.com/juanrgm)! - Access to `compilerOptions` optionally
+
+- Updated dependencies [[`e96bd5a`](https://github.com/swordev/wspa/commit/e96bd5acc203ea6a09574cb4eff151648d2f3e70), [`0e2d296`](https://github.com/swordev/wspa/commit/0e2d296f8c0b7ac6bf26e78a08bf049c6fbddf51)]:
+  - @wspa/cli@0.4.0
+
 ## 0.1.2
 
 ### Patch Changes
