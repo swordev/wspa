@@ -1,5 +1,15 @@
 # @wspa/cli
 
+## 0.5.0
+
+### Minor Changes
+
+- [`9248400`](https://github.com/swordev/wspa/commit/92484005bfe6b8984e5915af9ac7d6c1955628db) Thanks [@juanrgm](https://github.com/juanrgm)! - Add `create-bin-links` action
+
+### Patch Changes
+
+- [`91ff8c8`](https://github.com/swordev/wspa/commit/91ff8c8398f9f7174d50d5a1fa558fe6d7872302) Thanks [@juanrgm](https://github.com/juanrgm)! - Update dependencies
+
 ## 0.4.0
 
 ### Minor Changes
