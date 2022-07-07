@@ -12,11 +12,15 @@
     "@pnpm/find-workspace-packages": "^4.0.10",
     "@pnpm/logger": "^4.0.0",
     "@pnpm/types": "^8.0.1",
+    "cmd-shim": "^5.0.0",
     "commander": "^9.3.0",
     "fast-glob": "^3.2.11",
     "json5": "^2.2.1",
     "tsconfig": "^7.0.0",
     "yaml": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/cmd-shim": "^5.0.0"
   },
   "publishConfig": {
     "directory": "lib"

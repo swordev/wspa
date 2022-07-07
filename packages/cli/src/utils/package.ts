@@ -40,16 +40,26 @@ function resolvePath(path: string, cwd: string) {
   return path;
 }
 
+export function filterPackage(
+  pkg: { dir: string; manifest: { name?: string } },
+  options: { packageNames?: string[]; excludeRoot?: boolean } = {}
+) {
+  return (
+    (options.excludeRoot && pkg.dir === "." ? false : true) &&
+    (!options.packageNames?.length ||
+      options.packageNames.includes(pkg.manifest.name!))
+  );
+}
+
 export async function getPackages(options: { packageNames?: string[] } = {}) {
   const allProjects = await findWorkspacePackagesNoCheck(".");
   const rootProject = allProjects.find((pkg) => pkg.dir === ".");
-  const projects = allProjects.filter(
-    (pkg) =>
-      pkg !== rootProject &&
-      (!options.packageNames?.length ||
-        options.packageNames.includes(pkg.manifest.name!))
+  const projects = allProjects.filter((pkg) =>
+    filterPackage(pkg, {
+      ...options,
+      excludeRoot: true,
+    })
   );
-
   const packages: Package[] = [];
   const rootConfig = getManifestConfig(rootProject?.manifest);
 

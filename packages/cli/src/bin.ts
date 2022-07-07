@@ -2,6 +2,7 @@
 import clean from "./actions/clean.js";
 import compose from "./actions/compose.js";
 import copyFiles from "./actions/copyFiles.js";
+import createBinLinks from "./actions/createBinLinks.js";
 import updateDepLinks from "./actions/updateDepLinks.js";
 import { program } from "commander";
 import { readFileSync } from "fs";
@@ -40,6 +41,11 @@ program
   .command(snakeCase(copyFiles.name))
   .option(...packageNamesOption)
   .action((o) => copyFiles({ log: true, ...o }));
+
+program
+  .command(snakeCase(createBinLinks.name))
+  .option(...packageNamesOption)
+  .action((o) => createBinLinks({ log: true, ...o }));
 
 program
   .command(snakeCase(updateDepLinks.name))
