@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
+    "target": "ES2021",
     "module": "NodeNext",
     "incremental": true,
-    "composite": true
+    "composite": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "NodeNext"
   },
-  "exclude": ["**/temp/", "**/.*/", "**/lib", "**/node_modules"],
-  "extends": "@tsconfig/node16/tsconfig.json"
+  "exclude": ["**/temp/", "**/.*/", "**/lib", "**/node_modules"]
 }
