@@ -1,6 +1,8 @@
+import { safeStat } from "../utils/fs.js";
 import { logAction, logPkgName } from "../utils/log.js";
 import { filterPackage, getPackages, Package } from "../utils/package.js";
 import cmdShim from "cmd-shim";
+import { rm, writeFile } from "fs/promises";
 import { join } from "path";
 
 function normalizePkgBin(pkg: Package) {
@@ -32,7 +34,17 @@ async function createBins(pkg: Package, bins: Record<string, string>) {
   for (const binName in bins) {
     const scriptPath = bins[binName];
     const linkPath = join(pkg.dir, "node_modules", ".bin", binName);
-    await cmdShim(scriptPath, linkPath);
+    const existsScript = !!(await safeStat(scriptPath));
+    if (!existsScript) {
+      try {
+        await writeFile(scriptPath, "#!/usr/bin/env node\n");
+        await cmdShim(scriptPath, linkPath);
+      } finally {
+        await rm(scriptPath);
+      }
+    } else {
+      await cmdShim(scriptPath, linkPath);
+    }
   }
 }
 
