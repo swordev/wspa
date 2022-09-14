@@ -1,5 +1,15 @@
 # @wspa/cli
 
+## 0.6.0
+
+### Minor Changes
+
+- [`87e6fd9`](https://github.com/swordev/wspa/commit/87e6fd99d8951a341ea3717e8227efe2869a6b30) Thanks [@juanrgm](https://github.com/juanrgm)! - Add `devPkgManifestFields` config
+
+### Patch Changes
+
+- [`abf3bc8`](https://github.com/swordev/wspa/commit/abf3bc885c436d227866ef70117dfc6292f083ba) Thanks [@juanrgm](https://github.com/juanrgm)! - Update dependencies
+
 ## 0.5.1
 
 ### Patch Changes
