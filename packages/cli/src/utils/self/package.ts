@@ -1,17 +1,9 @@
+import { Config, getConfigFromManifest } from "./config.js";
 import { findWorkspacePackagesNoCheck } from "@pnpm/find-workspace-packages";
 import { ProjectManifest } from "@pnpm/types";
 import { join, resolve } from "path";
 
 export const configKey = "x-wspa" as const;
-
-export type Config = {
-  extends?: string;
-  rootDir?: string;
-  distDir?: string;
-  outFiles?: string[];
-  distFiles?: string[];
-  pkgManifest?: ProjectManifest;
-};
 
 export type Package = {
   name: string;
@@ -20,10 +12,6 @@ export type Package = {
   manifest: ProjectManifest;
   config: Config;
 };
-
-function getManifestConfig(manifest: ProjectManifest | undefined) {
-  return ((manifest as any)[configKey] || {}) as Config | false;
-}
 
 function resolvePath(path: string, cwd: string) {
   if (!path.endsWith(".js")) {
@@ -61,10 +49,10 @@ export async function getPackages(options: { packageNames?: string[] } = {}) {
     })
   );
   const packages: Package[] = [];
-  const rootConfig = getManifestConfig(rootProject?.manifest);
+  const rootConfig = getConfigFromManifest(rootProject?.manifest);
 
   for (const project of projects) {
-    const config = getManifestConfig(project.manifest);
+    const config = getConfigFromManifest(project.manifest);
 
     const pkg: Package = {
       name: project.manifest.name!,

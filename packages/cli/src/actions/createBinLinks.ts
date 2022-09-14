@@ -1,6 +1,6 @@
 import { safeStat } from "../utils/fs.js";
 import { logAction, logPkgName } from "../utils/log.js";
-import { filterPackage, getPackages, Package } from "../utils/package.js";
+import { filterPackage, getPackages, Package } from "../utils/self/package.js";
 import cmdShim from "cmd-shim";
 import { rm, writeFile } from "fs/promises";
 import { join } from "path";

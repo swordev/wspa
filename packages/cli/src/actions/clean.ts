@@ -1,5 +1,5 @@
 import { logAction, logPkgName } from "../utils/log.js";
-import { getPackages } from "./../utils/package.js";
+import { getPackages } from "../utils/self/package.js";
 import fg from "fast-glob";
 import { rm } from "fs/promises";
 import { join } from "path";

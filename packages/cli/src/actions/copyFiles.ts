@@ -1,6 +1,6 @@
 import { logAction, logPkgName } from "../utils/log.js";
 import { resolveRoot } from "../utils/path.js";
-import { getPackages, configKey } from "./../utils/package.js";
+import { getPackages, configKey } from "../utils/self/package.js";
 import fg from "fast-glob";
 import { cp, mkdir, symlink, writeFile } from "fs/promises";
 import { dirname, join, relative } from "path";

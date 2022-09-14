@@ -1,4 +1,5 @@
-import type { Config, Package } from "@wspa/cli/utils/package.js";
+import type { Config } from "@wspa/cli/utils/self/config.js";
+import type { Package } from "@wspa/cli/utils/self/package.js";
 import { readFile } from "fs/promises";
 
 async function safeReadFile(path: string) {
