@@ -9,6 +9,7 @@ export type Config = {
   outFiles?: string[];
   distFiles?: string[];
   pkgManifest?: ProjectManifest;
+  devPkgManifestFields?: boolean;
 };
 
 export function getConfigFromManifest(manifest: ProjectManifest | undefined) {

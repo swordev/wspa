@@ -42,10 +42,16 @@ async function copyFiles(options: { packageNames?: string[]; log?: boolean }) {
           ...pkg.manifest,
         };
         delete newPkg.publishConfig;
-        delete newPkg.devDependencies;
-        delete newPkg.scripts;
+        if (!pkg.config.devPkgManifestFields) {
+          delete newPkg.devDependencies;
+          delete newPkg.scripts;
+        }
         if (configKey in newPkg) delete newPkg[configKey];
         newPkg = { ...newPkg, ...(pkg.config.pkgManifest || {}) };
+        for (const key in newPkg) {
+          const k = key as keyof typeof newPkg;
+          if (newPkg[k] === null) delete newPkg[k];
+        }
         await writeFile(targetPath, JSON.stringify(newPkg, null, 2));
       } else if (entryValue === "node_modules") {
         try {
