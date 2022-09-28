@@ -1,30 +1,36 @@
 import type { Config } from "@wspa/cli/utils/self/config.js";
 import type { Package } from "@wspa/cli/utils/self/package.js";
-import { readFile } from "fs/promises";
+import { readFile, stat } from "fs/promises";
 
-async function safeReadFile(path: string) {
+async function safeStat(path: string) {
   try {
-    return (await readFile(path)).toString();
-  } catch (_) {
-    return undefined;
+    return await stat(path);
+  } catch (_) {}
+}
+
+async function findPath(paths: string[]) {
+  for (const path of paths) {
+    if (await safeStat(path)) return path;
   }
 }
 
 export async function buildConfig(pkg: Package) {
-  const vite =
-    !!(await safeReadFile(`${pkg.dir}/vite.config.ts`)) ||
-    !!(await safeReadFile(`${pkg.dir}/vite.config.js`));
-  const tsconfigRaw = await safeReadFile(`${pkg.dir}/tsconfig.json`);
+  const hasViteConfig = !!(await findPath([
+    `${pkg.dir}/vite.config.ts`,
+    `${pkg.dir}/vite.config.js`,
+  ]));
+  const tsconfigPath = await findPath([`${pkg.dir}/tsconfig.json`]);
   const config: Pick<Config, "distDir" | "rootDir" | "distFiles" | "outFiles"> =
     {
       distFiles: ["CHANGELOG.md", "node_modules"],
       outFiles: [],
     };
 
-  if (vite) {
+  if (hasViteConfig) {
     config.distDir = "dist";
     config.outFiles!.push(config.distDir);
-  } else if (tsconfigRaw) {
+  } else if (tsconfigPath) {
+    const tsconfigRaw = (await readFile(tsconfigPath)).toString();
     const tsconfig = JSON.parse(tsconfigRaw) as
       | {
           compilerOptions?: {
