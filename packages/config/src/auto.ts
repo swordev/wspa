@@ -47,7 +47,7 @@ export async function buildConfig(pkg: Package) {
 
     config.rootDir = tsconfig?.compilerOptions?.rootDir;
     config.distDir = distDir;
-    config.outFiles!.push("tsconfig.tsbuildinfo");
+    config.outFiles!.push("*.tsbuildinfo");
     if (distDir) config.outFiles!.push(distDir);
   } else if (pkg.manifest.publishConfig?.directory) {
     config.distDir = pkg.manifest.publishConfig.directory;
