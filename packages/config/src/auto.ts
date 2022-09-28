@@ -19,7 +19,10 @@ export async function buildConfig(pkg: Package) {
     `${pkg.dir}/vite.config.ts`,
     `${pkg.dir}/vite.config.js`,
   ]));
-  const tsconfigPath = await findPath([`${pkg.dir}/tsconfig.json`]);
+  const tsconfigPath = await findPath([
+    `${pkg.dir}/tsconfig.build.json`,
+    `${pkg.dir}/tsconfig.json`,
+  ]);
   const config: Pick<Config, "distDir" | "rootDir" | "distFiles" | "outFiles"> =
     {
       distFiles: ["CHANGELOG.md", "node_modules"],
