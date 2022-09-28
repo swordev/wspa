@@ -1,6 +1,6 @@
 {
   "name": "@wspa/config",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "WSPA configs",
   "type": "module",
   "scripts": {

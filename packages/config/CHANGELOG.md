@@ -1,5 +1,11 @@
 # @wspa/config
 
+## 0.3.0
+
+### Minor Changes
+
+- [`de244da`](https://github.com/swordev/wspa/commit/de244da25b6c5f36b093dcef518e4873c78a72be) Thanks [@juanrgm](https://github.com/juanrgm)! - Prioritize `tsconfig.build.json`
+
 ## 0.2.3
 
 ### Patch Changes
