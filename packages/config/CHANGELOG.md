@@ -1,5 +1,11 @@
 # @wspa/config
 
+## 0.3.1
+
+### Patch Changes
+
+- [`37b7015`](https://github.com/swordev/wspa/commit/37b7015aa8f46ff2c2efd5ac4557263b3ebb63e1) Thanks [@juanrgm](https://github.com/juanrgm)! - Remove all `tsbuildinfo` files
+
 ## 0.3.0
 
 ### Minor Changes
