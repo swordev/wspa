@@ -16,7 +16,9 @@
     "commander": "^9.4.0",
     "fast-glob": "^3.2.12",
     "json5": "^2.2.1",
+    "merge": "^2.1.1",
     "tsconfig": "^7.0.0",
+    "type-fest": "^3.0.0",
     "yaml": "^2.1.1"
   },
   "devDependencies": {

@@ -6,6 +6,12 @@ export async function parseJSONFile<T = any>(path: string) {
   return json5.parse(contents.toString()) as T;
 }
 
+export async function findPath(paths: string[]) {
+  for (const path of paths) {
+    if (await safeStat(path)) return path;
+  }
+}
+
 export async function safeStat(path: string) {
   try {
     return await stat(path);

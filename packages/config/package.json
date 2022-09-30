@@ -16,5 +16,14 @@
   },
   "engine": {
     "node": ">=16.0.0"
+  },
+  "x-wspa": {
+    "tsconfig": {
+      "build": {
+        "compilerOptions": {
+          "target": "ES5"
+        }
+      }
+    }
   }
 }

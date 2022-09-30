@@ -1,6 +1,7 @@
-import { Config, getConfigFromManifest } from "./config.js";
+import { Config, parseConfig } from "./config.js";
 import { findWorkspacePackagesNoCheck } from "@pnpm/find-workspace-packages";
 import { ProjectManifest } from "@pnpm/types";
+import merge from "merge";
 import { join, resolve } from "path";
 
 export const configKey = "x-wspa" as const;
@@ -39,9 +40,33 @@ export function filterPackage(
   );
 }
 
+export function getWorkspaceDeps(name: string, packages: Package[]) {
+  const pkg = packages.find((pkg) => pkg.name === name);
+  if (!pkg) throw new Error(`Package not found: ${name}`);
+
+  const workspaceDeps: string[] = [];
+
+  const allDeps = [
+    pkg.manifest.dependencies,
+    pkg.manifest.devDependencies,
+    pkg.manifest.peerDependencies,
+  ];
+
+  for (const deps of allDeps) {
+    for (const dep in deps) {
+      const version = deps[dep];
+      if (version.startsWith("workspace:")) {
+        if (!workspaceDeps.includes(dep)) workspaceDeps.push(dep);
+      }
+    }
+  }
+
+  return workspaceDeps;
+}
+
 export async function getPackages(options: { packageNames?: string[] } = {}) {
   const allProjects = await findWorkspacePackagesNoCheck(".");
-  const rootProject = allProjects.find((pkg) => pkg.dir === ".");
+  const rootProject = allProjects.find((pkg) => pkg.dir === ".")!;
   const projects = allProjects.filter((pkg) =>
     filterPackage(pkg, {
       ...options,
@@ -49,10 +74,11 @@ export async function getPackages(options: { packageNames?: string[] } = {}) {
     })
   );
   const packages: Package[] = [];
-  const rootConfig = getConfigFromManifest(rootProject?.manifest);
+
+  const rootConfig = await parseConfig(rootProject);
 
   for (const project of projects) {
-    const config = getConfigFromManifest(project.manifest);
+    const config = await parseConfig(project);
 
     const pkg: Package = {
       name: project.manifest.name!,
@@ -63,17 +89,10 @@ export async function getPackages(options: { packageNames?: string[] } = {}) {
     };
 
     if (config !== false) {
-      pkg.config = config;
+      if (config) pkg.config = config;
 
       if (rootConfig !== false)
-        pkg.config = {
-          ...rootConfig,
-          ...pkg.config,
-          pkgManifest: {
-            ...rootConfig.pkgManifest,
-            ...pkg.config.pkgManifest,
-          },
-        };
+        pkg.config = merge.recursive(true, rootConfig, pkg.config);
 
       if (pkg.config.extends) {
         const path = resolvePath(pkg.config.extends, pkg.dir);

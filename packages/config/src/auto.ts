@@ -1,5 +1,6 @@
 import type { Config } from "@wspa/cli/utils/self/config.js";
 import type { Package } from "@wspa/cli/utils/self/package.js";
+import { TsConfig } from "@wspa/cli/utils/self/tsconfig.js";
 import { readFile, stat } from "fs/promises";
 
 async function safeStat(path: string) {
@@ -14,6 +15,15 @@ async function findPath(paths: string[]) {
   }
 }
 
+function applyTsConfig(config: Config, tsconfig: TsConfig) {
+  if (tsconfig.compilerOptions) {
+    config.rootDir = tsconfig.compilerOptions.rootDir;
+    config.distDir = tsconfig.compilerOptions.outDir;
+    if (config.distDir) config.outFiles!.push(config.distDir);
+  }
+  config.outFiles!.push("*.tsbuildinfo");
+}
+
 export async function buildConfig(pkg: Package) {
   const hasViteConfig = !!(await findPath([
     `${pkg.dir}/vite.config.ts`,
@@ -23,32 +33,26 @@ export async function buildConfig(pkg: Package) {
     `${pkg.dir}/tsconfig.build.json`,
     `${pkg.dir}/tsconfig.json`,
   ]);
+  const tsconfigProfiles = pkg.config.tsconfigProfiles || {};
+  const tsconfigProfile = tsconfigProfiles.defaults || tsconfigProfiles.build;
+
   const config: Pick<Config, "distDir" | "rootDir" | "distFiles" | "outFiles"> =
     {
       distFiles: ["CHANGELOG.md", "node_modules"],
-      outFiles: [],
+      outFiles: Object.keys(tsconfigProfiles).map((v) =>
+        v === "defaults" ? "tsconfig.json" : `tsconfig.${v}.json`
+      ),
     };
 
   if (hasViteConfig) {
     config.distDir = "dist";
     config.outFiles!.push(config.distDir);
+  } else if (tsconfigProfile) {
+    applyTsConfig(config, tsconfigProfile);
   } else if (tsconfigPath) {
     const tsconfigRaw = (await readFile(tsconfigPath)).toString();
-    const tsconfig = JSON.parse(tsconfigRaw) as
-      | {
-          compilerOptions?: {
-            outDir?: string;
-            rootDir?: string;
-          };
-        }
-      | undefined;
-
-    const distDir = tsconfig?.compilerOptions?.outDir;
-
-    config.rootDir = tsconfig?.compilerOptions?.rootDir;
-    config.distDir = distDir;
-    config.outFiles!.push("*.tsbuildinfo");
-    if (distDir) config.outFiles!.push(distDir);
+    const tsconfig = JSON.parse(tsconfigRaw) as TsConfig;
+    applyTsConfig(config, tsconfig);
   } else if (pkg.manifest.publishConfig?.directory) {
     config.distDir = pkg.manifest.publishConfig.directory;
     config.outFiles!.push(config.distDir);

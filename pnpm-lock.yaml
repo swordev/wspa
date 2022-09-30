@@ -34,7 +34,9 @@ importers:
       commander: ^9.4.0
       fast-glob: ^3.2.12
       json5: ^2.2.1
+      merge: ^2.1.1
       tsconfig: ^7.0.0
+      type-fest: ^3.0.0
       yaml: ^2.1.1
     dependencies:
       '@pnpm/find-workspace-packages': 4.0.36_@pnpm+logger@4.0.0
@@ -44,7 +46,9 @@ importers:
       commander: 9.4.0
       fast-glob: 3.2.12
       json5: 2.2.1
+      merge: 2.1.1
       tsconfig: 7.0.0
+      type-fest: 3.0.0
       yaml: 2.1.1
     devDependencies:
       '@types/cmd-shim': 5.0.0
@@ -3938,6 +3942,10 @@ packages:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
     dev: false
 
+  /merge/2.1.1:
+    resolution: {integrity: sha512-jz+Cfrg9GWOZbQAnDQ4hlVnQky+341Yk5ru8bZSe6sIDTCIg8n9i/u7hSQGSVOF3C7lH6mGtqjkiT9G4wFLL0w==}
+    dev: false
+
   /merge2/1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
@@ -5604,6 +5612,11 @@ packages:
     resolution: {integrity: sha512-qpaThT2HQkFb83gMOrdKVsfCN7LKxP26Yq+smPzY1FqoHRjqmjqHXA7n5Gkxi8efirtbeEUxzfEdePthQWCuHw==}
     engines: {node: '>=12.20'}
     dev: true
+
+  /type-fest/3.0.0:
+    resolution: {integrity: sha512-MINvUN5ug9u+0hJDzSZNSnuKXI8M4F5Yvb6SQZ2CYqe7SgKXKOosEcU5R7tRgo85I6eAVBbkVF7TCvB4AUK2xQ==}
+    engines: {node: '>=14.16'}
+    dev: false
 
   /typedarray-to-buffer/3.1.5:
     resolution: {integrity: sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==}

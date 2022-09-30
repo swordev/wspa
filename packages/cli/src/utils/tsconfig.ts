@@ -1,23 +1,14 @@
 import { readFile } from "fs/promises";
-
-type CompilerOptions = { paths: Record<string, string[]>; outDir?: string };
-type Reference = { path: string };
-
-export type TsConfig = {
-  references: Reference[];
-  compilerOptions: CompilerOptions;
-  include?: string[];
-  exclude?: string[];
-};
+import { TsConfigJson } from "type-fest";
 
 export async function parseTsConfigFile(
   path: string,
   strict?: true
-): Promise<TsConfig>;
+): Promise<TsConfigJson>;
 export async function parseTsConfigFile(
   path: string,
   strict: false
-): Promise<TsConfig | undefined>;
+): Promise<TsConfigJson | undefined>;
 export async function parseTsConfigFile(path: string, strict = true) {
   let contents: Buffer | undefined;
   try {
@@ -27,5 +18,7 @@ export async function parseTsConfigFile(path: string, strict = true) {
       throw error;
   }
 
-  return contents ? (JSON.parse(contents.toString()) as TsConfig) : undefined;
+  return contents
+    ? (JSON.parse(contents.toString()) as TsConfigJson)
+    : undefined;
 }
